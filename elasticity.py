@@ -32,7 +32,7 @@ common_elements = [4.0,5.0, 6.0, 7.0,8.0, 9.0,
                    502.0, 503.0, 507.0, 529.0, 530.0, 531.0, 532.0, 533.0, 540.0, 541.0, 546.0, 547.0, 551.0]
 places = common_elements
 
-def estimate_elasticity(grouped, places):
+def estimate_elasticity(grouped, places, columns):
   places = places
   beta_dict = {}
   beta_list = []
@@ -46,15 +46,15 @@ def estimate_elasticity(grouped, places):
 
         continue
       tmp = tmp.reset_index()
-      X = tmp[['売価', 'date_Sun', 'date_Mon', 'date_Tue', 'date_Wed', 'date_Thu', 'date_Fri', 'date_Sat']]
+      X = tmp[columns]
       y = tmp['数量/日']
 
       model = lm.LinearRegression()
       model.fit(X, y)
 
       beta_dict[i] = float(model.coef_[0])
-      beta_list.append(float(model.coef_[0]))
       r2_dict[i] = float(model.score(X,y))
 
 
   return beta_dict, beta_list, r2_dict
+['売価', 'date_Sun', 'date_Mon', 'date_Tue', 'date_Wed', 'date_Thu', 'date_Fri', 'date_Sat']
