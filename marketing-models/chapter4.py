@@ -190,3 +190,5 @@ plt.show()
 
 # 推定結果の表示
 print("Estimated parameters (p, q, m):", params)
+
+#end
